@@ -1,42 +1,44 @@
-import { StyleSheet, TextInput, Text, View, Button } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
+import GoalItem from './components/GoalItem';
+import GoalInput from './components/GoalInput';
 
 export default function App() {
+  
+  const [courseGoals, setCourseGoals] = useState([]);
+
+  function addGoalHandler(text) {
+    console.log('text from addGoalHandler: ', text);
+    setCourseGoals((currentCourseGoals) => [...currentCourseGoals, { text: text, key: Math.random().toString() }]);
+    console.log('courseGoals: ', courseGoals);
+}
+
   return (
-    <View style={styles['app-container']}>
-      <View style={styles['input-container']}>
-        <TextInput style={styles['text-input']} placeholder='What are your course goals?' />
-        <Button title="Add Goal" />
+    <View style={styles['app-container']}>  
+      <GoalInput onAddGoal={addGoalHandler}/>
+      <View style={styles['goals-container']}> 
+        <FlatList data={courseGoals} alwaysBounceVertical={false} renderItem={itemData => {
+          return <GoalItem text={itemData.item.text} />;
+        }}
+        keyExtractor={(item, index) => {
+          return item.id;
+        }}
+        />
       </View>
-      <View style={{ flexDirection: 'row', width: '80%', height: 300, alignItems: 'center' }}>
-        <View style={[styles['box'], { backgroundColor: 'red' }]}><Text>1</Text></View>
-        <View style={[styles['box'], { backgroundColor: 'blue' }]}><Text>2</Text></View>
-        <View style={[styles['box'], { backgroundColor: 'green' }]}><Text>3</Text></View>
-      </View>
+      
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   'app-container': {
-    padding: 50
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 16,
   },
-  'input-container': {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+
+
+  'goals-container': {
+    flex: 4,
   },
-  'text-input': {
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    paddingLeft: 8,
-    paddingRight: 8,
-    width: '80%',
-    marginRight: 8
-  },
-  'box': {
-    width: 100,
-    height: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 8,
-  }
 });
