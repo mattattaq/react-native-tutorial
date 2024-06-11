@@ -11,6 +11,7 @@ This repo is to house the app from the above course and serve as a list of comma
 - [Simulator](https://developer.android.com/studio)
 - [code snapshots and slides from the tutorial](https://github.com/academind/react-native-practical-guide-code)
 - [React native components](https://reactnative.dev/docs/components-and-apis)
+- [official styling documentation: ](https://reactnative.dev/docs/style)
 
 ### Commands:
 - `cd react-native-app`
